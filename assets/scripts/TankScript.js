@@ -123,7 +123,8 @@ cc.Class({
                 continue;
             }
             var boundingBox = tank.getBoundingBox();
-            if(cc.rectIntersectsRect(rect, boundingBox)){
+            // if(cc.rectIntersectsRect(rect, boundingBox)){
+            if(rect.intersects(boundingBox)){  
                 return true;
             }
         }
@@ -160,12 +161,14 @@ cc.Class({
             offset = cc.v2(Math.cos(Math.PI/180*angle),
                                 Math.sin(Math.PI/180*angle));
         }
-        bullet.position = cc.pAdd(pos,cc.v2(10*offset.x, 10*offset.y));
+        // bullet.position = cc.pAdd(pos,cc.v2(10*offset.x, 10*offset.y));
+        bullet.position = pos.add(cc.v2(10*offset.x, 10*offset.y));
 
         bullet.getComponent("BulletScript").bulletMove();
         bullet.parent = this.bulletNode;
         //子弹标记
-        bullet.tag = this.team;
+        bullet.camp = this.team;
+        
 
         //加到列表
         cc.gameData.bulletList.push(bullet);

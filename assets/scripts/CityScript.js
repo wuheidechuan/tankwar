@@ -51,7 +51,7 @@ cc.Class({
 
     // use this for initialization
     onLoad: function () {
-        cc.director.setDisplayStats(true);
+        // cc.director.setDisplayStats(true);
         //获取摇杆控制组件
         this._joystickCtrl = this.yaogan.getComponent("JoystickCtrl");
         //获取地图 TiledMap 组件
@@ -143,20 +143,20 @@ cc.Class({
                         function (event) {
                             var angle = null;
                             switch(event.keyCode) {
-                                case cc.KEY.w:
+                                case cc.macro.KEY.w:
                                     angle = 90;
                                     break;
-                                case cc.KEY.s:
+                                case cc.macro.KEY.s:
                                     angle = 270;
                                     break;
-                                case cc.KEY.a:
+                                case cc.macro.KEY.a:
                                     angle = 180;
                                     break;
-                                case cc.KEY.d:
+                                case cc.macro.KEY.d:
                                     angle = 0;
                                     break;
                             }
-                            if(event.keyCode == cc.KEY.k){
+                            if(event.keyCode == cc.macro.KEY.k){
                                 this.fireBtnClick();
                             }else {
                                 self._playerTankCtrl.tankMoveStop();
@@ -170,7 +170,7 @@ cc.Class({
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, 
                         function (event){
                             //停止前进
-                            if(event.keyCode != cc.KEY.k){
+                            if(event.keyCode != cc.macro.KEY.k){
                                 self._playerTankCtrl.tankMoveStop();
                             }
                         }, this);
@@ -217,7 +217,8 @@ cc.Class({
         if (this._tiledMapData.gidToTileType[gid] != this._tiledMapData.tileType.tileNone && 
             this._tiledMapData.gidToTileType[gid] != this._tiledMapData.tileType.tileGrass){
             if(bullet && this._tiledMapData.gidToTileType[gid] == this._tiledMapData.tileType.tileWall){
-                this.mapLayer0.removeTileAt(cc.v2(parseInt(point.x / this._curMapTileSize.width),parseInt(point.y / this._curMapTileSize.height)));
+                // this.mapLayer0.removeTileAt(cc.v2(parseInt(point.x / this._curMapTileSize.width),parseInt(point.y / this._curMapTileSize.height)));
+                this.mapLayer0.setTileGIDAt(0, parseInt(point.x / this._curMapTileSize.width),parseInt(point.y / this._curMapTileSize.height), 1);
             }
             return true;
         }

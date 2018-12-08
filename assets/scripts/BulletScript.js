@@ -14,7 +14,8 @@ cc.Class({
         //    readonly: false,    // optional, default is false
         // },
         // ...
-        speed: 20
+        speed: 20,
+        camp : 0,
 
     },
 
@@ -71,12 +72,12 @@ cc.Class({
         for(var i=0; i<cc.gameData.tankList.length; i++){
             var tank = cc.gameData.tankList[i]
             var tankCtrl = tank.getComponent("TankScript");
-            if(tankCtrl.team == this.node.tag || tankCtrl.die){
+            if(tankCtrl.team == this.node.camp || tankCtrl.die){
                 //同一队不互相伤害
                 continue;
             }
             var boundingBox = tank.getBoundingBox();
-            if(cc.rectIntersectsRect(rect, boundingBox)){
+            if(rect.intersects(boundingBox)){
                 if(--tankCtrl.blood <= 0){
                     tankCtrl.boom();
                 }
